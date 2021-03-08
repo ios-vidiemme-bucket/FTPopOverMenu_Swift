@@ -55,6 +55,10 @@ public class FTPopOverMenu : NSObject {
         return menu
     }()
     
+    public var tableView: UITableView { popOverMenu.menuTableView }
+    
+    public func updateData(_ items: [FTMenuObject], images: [Imageable]?) { popOverMenu.updateData(items, images: images) }
+    
     fileprivate var isOnScreen : Bool = false {
         didSet {
             if isOnScreen {
@@ -299,6 +303,12 @@ private class FTPopOverMenuView: UIControl {
         tableView.clipsToBounds = true
         return tableView
     }()
+    
+    func updateData(_ items: [FTMenuObject], images: [Imageable]?) {
+        menuNameArray = items
+        menuImageArray = images
+        menuTableView.reloadData()
+    }
     
     fileprivate func showWithAnglePoint(point: CGPoint, frame: CGRect, menuNameArray: [FTMenuObject]!, menuImageArray: [Imageable]?, config: FTConfiguration? = nil, arrowDirection: FTPopOverMenuArrowDirection, done: @escaping ((NSInteger) -> Void)) {
         
